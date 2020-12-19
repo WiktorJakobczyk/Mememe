@@ -7,6 +7,7 @@ import com.wjakobczyk.meme_me.dto.RefreshTokenRequest;
 import com.wjakobczyk.meme_me.dto.RegisterRequest;
 import com.wjakobczyk.meme_me.exception.TodoAppException;
 import com.wjakobczyk.meme_me.model.NotificationEmail;
+
 import com.wjakobczyk.meme_me.model.User;
 import com.wjakobczyk.meme_me.model.VerificationToken;
 import com.wjakobczyk.meme_me.repository.UserRepository;
