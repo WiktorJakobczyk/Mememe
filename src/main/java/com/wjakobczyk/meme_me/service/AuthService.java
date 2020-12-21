@@ -5,7 +5,7 @@ import com.wjakobczyk.meme_me.dto.AuthenticationResponse;
 import com.wjakobczyk.meme_me.dto.LoginRequest;
 import com.wjakobczyk.meme_me.dto.RefreshTokenRequest;
 import com.wjakobczyk.meme_me.dto.RegisterRequest;
-import com.wjakobczyk.meme_me.exception.TodoAppException;
+import com.wjakobczyk.meme_me.exception.MemeMeException;
 import com.wjakobczyk.meme_me.model.NotificationEmail;
 
 import com.wjakobczyk.meme_me.model.User;
@@ -70,7 +70,7 @@ public class AuthService {
 
     public void verifyAccount(String token) {
         Optional<VerificationToken> verificationToken =verificationTokenRepository.findByToken(token);
-        verificationToken.orElseThrow(()->new TodoAppException("Invalid Token"));
+        verificationToken.orElseThrow(()->new MemeMeException("Invalid Token"));
 
         fetchUserAndEnable(verificationToken.get());
     }
@@ -78,7 +78,7 @@ public class AuthService {
     @Transactional
     void fetchUserAndEnable(VerificationToken verificationToken) {
         String username= verificationToken.getUser().getUsername();
-        User user = userRepository.findByUsername(username).orElseThrow(()->new TodoAppException("User not found with name -"+username,null));
+        User user = userRepository.findByUsername(username).orElseThrow(()->new MemeMeException("User not found with name -"+username,null));
         user.setEnabled(true);
 
         userRepository.save(user);
@@ -102,7 +102,9 @@ public class AuthService {
     }
 
     public void logout(){
+
         SecurityContextHolder.getContext().setAuthentication(null);
+
     }
 
 

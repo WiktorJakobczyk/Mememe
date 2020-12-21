@@ -2,7 +2,7 @@ package com.wjakobczyk.meme_me.security;
 
 
 
-import com.wjakobczyk.meme_me.exception.TodoAppException;
+import com.wjakobczyk.meme_me.exception.MemeMeException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,7 +35,7 @@ public class JwtProvider {
             InputStream resourceAsStream = getClass().getResourceAsStream("/mememe.jks");
             keyStore.load(resourceAsStream, "password".toCharArray());
         } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException e) {
-            throw new TodoAppException("Exception occurred while loading keystore");
+            throw new MemeMeException("Exception occurred while loading keystore");
         }
 
     }
@@ -64,7 +64,7 @@ public class JwtProvider {
         try {
             return (PrivateKey) keyStore.getKey("mememe", "password".toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
-            throw new TodoAppException("Exception occured while retrieving public key from keystore", e);
+            throw new MemeMeException("Exception occured while retrieving public key from keystore", e);
         }
     }
 
@@ -80,7 +80,7 @@ public class JwtProvider {
             return keyStore.getCertificate("mememe").getPublicKey();
 
         }catch (KeyStoreException e){
-            throw new TodoAppException("Exception occured while retrieving public key!",e);
+            throw new MemeMeException("Exception occured while retrieving public key!",e);
         }
 
     }

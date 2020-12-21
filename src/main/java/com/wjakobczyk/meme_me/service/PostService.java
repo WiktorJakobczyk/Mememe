@@ -3,6 +3,7 @@ package com.wjakobczyk.meme_me.service;
 
 import com.wjakobczyk.meme_me.dto.PostRequest;
 import com.wjakobczyk.meme_me.dto.PostResponse;
+import com.wjakobczyk.meme_me.exception.MemeMeException;
 import com.wjakobczyk.meme_me.model.Post;
 import com.wjakobczyk.meme_me.model.User;
 import com.wjakobczyk.meme_me.repository.PostRepository;
@@ -33,6 +34,9 @@ public class PostService {
 
     }
 
+
+
+
     public PostResponse createPost(PostRequest toCreate) {
         toCreate.setUser(authService.getCurrentUser());
         Post result=postRepository.save(toCreate.toPost());
@@ -50,5 +54,16 @@ public class PostService {
         return postRepository.findAllByUser(user).stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    public  List<PostResponse>  getAllPostsByCategory(String category){
+        return postRepository.findAllByCategory(category).stream()
+                .map(PostResponse::new)
+                .collect(Collectors.toList());
+    }
+
+    public PostResponse getPostById(Long id){
+        return postRepository.findById(id).map(PostResponse::new)
+                .orElseThrow(() -> new MemeMeException("No post with given id"));
     }
 }

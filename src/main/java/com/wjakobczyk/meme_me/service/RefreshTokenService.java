@@ -1,6 +1,6 @@
 package com.wjakobczyk.meme_me.service;
 
-import com.wjakobczyk.meme_me.exception.TodoAppException;
+import com.wjakobczyk.meme_me.exception.MemeMeException;
 import com.wjakobczyk.meme_me.model.RefreshToken;
 import com.wjakobczyk.meme_me.repository.RefreshTokenRepository;
 import lombok.AllArgsConstructor;
@@ -28,10 +28,11 @@ public class RefreshTokenService {
     }
     void validateRefreshToken(String token) {
         refreshTokenRepository.findByToken(token)
-                .orElseThrow(() -> new TodoAppException("Invalid refresh Token"));
+                .orElseThrow(() -> new MemeMeException("Invalid refresh Token"));
     }
 
     public void deleteRefreshToken(String token) {
         refreshTokenRepository.deleteByToken(token);
+
     }
 }

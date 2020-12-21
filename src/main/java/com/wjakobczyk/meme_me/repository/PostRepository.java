@@ -13,5 +13,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAll();
     Post save(Post entity);
     List<Post> findAllByUser(User username);
+    List<Post> findAllByCategory(String category);
 
 }

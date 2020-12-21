@@ -1,7 +1,7 @@
 package com.wjakobczyk.meme_me.service;
 
 
-import com.wjakobczyk.meme_me.exception.TodoAppException;
+import com.wjakobczyk.meme_me.exception.MemeMeException;
 import com.wjakobczyk.meme_me.model.NotificationEmail;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class MailService {
             log.info("Activation email sent!");
         } catch (MailException e) {
             log.error("Exception occurred when sending mail", e);
-            throw new TodoAppException("Exception occurred when sending mail to " + notificationEmail.getRecipient(),e);
+            throw new MemeMeException("Exception occurred when sending mail to " + notificationEmail.getRecipient(),e);
         }
     }
 }

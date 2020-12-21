@@ -24,14 +24,14 @@ public class ImageController {
     public ResponseEntity<?> uploadFile(@RequestParam MultipartFile file, @PathVariable String category, @PathVariable String path) throws IOException {
         System.out.println(category);
         System.out.println(path);
-        file.transferTo(new File("F:/SpringUdemyKursPL/WebProjectApp — kopia/src/main/resources/images/memes/"+category+"/"+path));
+        file.transferTo(new File("F:/Spring/meme_meAPP/src/main/resources/images/memes/"+category+"/"+path));
         return ResponseEntity.ok().build();
     }
-
+// F:/Spring/meme_meAPP/src/main/resources/images
     @GetMapping(value = "/images/memes/{category}/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody
     byte[] getImageWithMediaType(@PathVariable String category, @PathVariable String name) throws IOException {
-        InputStream stream = new FileInputStream("F:/SpringUdemyKursPL/WebProjectApp — kopia/src/main/resources/images/memes/"+category+"/"+name);  // Relative do not work without rebuild
+        InputStream stream = new FileInputStream("F:/Spring/meme_meAPP/src/main/resources/images/memes/"+category+"/"+name);  // Relative do not work without rebuild
         if (stream == null) {
             throw new FileNotFoundException("readFilesInBytes: File "
                     + " does not exist");

@@ -27,6 +27,11 @@ public class PostController {
         return ResponseEntity.ok(postService.getAllPosts());
     }
 
+    @GetMapping("/{id}")
+    ResponseEntity<PostResponse> readPost(@PathVariable Long id){
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
+
     @PostMapping
     ResponseEntity<PostResponse> createGroup(@RequestBody @Valid PostRequest toCreate) {
         PostResponse result = postService.createPost(toCreate);
@@ -37,5 +42,10 @@ public class PostController {
     ResponseEntity<List<PostResponse>> readAllPostsByUsername(@PathVariable String username) {
         System.out.println("USERNAME: "+username);
         return ResponseEntity.ok(postService.getAllPostsByUsername(username));
+    }
+
+    @GetMapping("/by-category/{category}")
+    ResponseEntity<List<PostResponse>> readAllPostsByCategory(@PathVariable String category){
+        return ResponseEntity.ok(postService.getAllPostsByCategory(category));
     }
 }
