@@ -3,9 +3,9 @@ APP built using Spring Boot, Spring Security with JPA Authentication, Spring Dat
 App can be tested with Postman or using frontend code: http------------------------
  
 ## General info
-It's a service which allows to upload, rate and comment images. Browsing memes does not require to be logged in, but if user wants to upload something, like or comment, then they need to register (mailTrap activation) and log in. For testing purposes you can use::
-login: user
-password: user  
+It's a service which allows to upload, rate and comment images. Browsing memes does not require to be logged in, but if user wants to upload something, like or comment, then they need to register (mailTrap activation) and log in. For testing purposes you can use: <br/>
+*login: user* <br/>
+*password: user*  
 
 
  
