@@ -7,6 +7,7 @@ import com.wjakobczyk.meme_me.dto.PostResponse;
 import com.wjakobczyk.meme_me.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,7 +34,7 @@ public class PostController {
     }
 
     @PostMapping
-    ResponseEntity<PostResponse> createGroup(@RequestBody @Valid PostRequest toCreate) {
+    ResponseEntity<PostResponse> createPost(@RequestBody @Valid PostRequest toCreate) {
         PostResponse result = postService.createPost(toCreate);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
@@ -47,5 +48,12 @@ public class PostController {
     @GetMapping("/by-category/{category}")
     ResponseEntity<List<PostResponse>> readAllPostsByCategory(@PathVariable String category){
         return ResponseEntity.ok(postService.getAllPostsByCategory(category));
+    }
+
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<String> deletePost(@PathVariable Long id){
+
+        return ResponseEntity.ok(postService.deletePost(id));
     }
 }

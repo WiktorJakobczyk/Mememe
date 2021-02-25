@@ -1,10 +1,7 @@
 package com.wjakobczyk.meme_me.controller;
 
 
-import com.wjakobczyk.meme_me.dto.AuthenticationResponse;
-import com.wjakobczyk.meme_me.dto.LoginRequest;
-import com.wjakobczyk.meme_me.dto.RefreshTokenRequest;
-import com.wjakobczyk.meme_me.dto.RegisterRequest;
+import com.wjakobczyk.meme_me.dto.*;
 import com.wjakobczyk.meme_me.service.AuthService;
 import com.wjakobczyk.meme_me.service.RefreshTokenService;
 import lombok.AllArgsConstructor;
@@ -53,4 +50,6 @@ public class AuthController {
         System.out.println("logout");
         return ResponseEntity.status(OK).body("Refresh Token Deleted Successfully!!");
     }
+
+
 }

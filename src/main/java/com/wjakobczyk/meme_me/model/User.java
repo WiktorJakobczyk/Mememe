@@ -1,9 +1,11 @@
 package com.wjakobczyk.meme_me.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -33,5 +35,7 @@ public class User {
     private String email;
     private Instant created;
     private boolean enabled;
+    @Column(columnDefinition = "varchar(255) default 'USER'")
+    private String role;
 
 }

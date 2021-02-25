@@ -6,6 +6,7 @@ import com.wjakobczyk.meme_me.dto.CommentResponse;
 import com.wjakobczyk.meme_me.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -37,5 +38,12 @@ public class CommentController {
     public ResponseEntity<CommentResponse> editComment(@PathVariable Long id, @RequestBody CommentRequest toEdit){
         commentService.editComment(id,toEdit);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteComment(@PathVariable Long id){
+
+        return ResponseEntity.ok(commentService.deleteComment(id));
     }
 }

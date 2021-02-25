@@ -49,4 +49,13 @@ public class CommentService {
                     commentRepository.save(comment);
                 });
     }
+
+    public String deleteComment(Long id){
+        if(!commentRepository.existsById(id)){
+            return "No comment with given id";
+
+        }
+        commentRepository.deleteById(id);
+        return "Deleted comment with id: "+id;
+    }
 }

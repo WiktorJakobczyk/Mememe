@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,7 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 @AllArgsConstructor
-
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -27,16 +27,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         httpSecurity.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/*")
+                .antMatchers("/api/auth/**")
                 .permitAll()
-                .antMatchers("/api/posts/**")
+                .antMatchers(HttpMethod.GET,"/api/posts/**")
                 .permitAll()
-                .antMatchers("/api/comments/**")
+                .antMatchers(HttpMethod.POST,"/api/posts/**")
+                .permitAll()
+                .antMatchers(HttpMethod.GET,"/api/comments/**")
+                .permitAll()
+                .antMatchers(HttpMethod.POST,"/api/comments/**")
+                .permitAll()
+                .antMatchers(HttpMethod.PATCH,"/api/comments/**")
                 .permitAll()
                 .antMatchers(HttpMethod.GET,"/images/**")
                 .permitAll()
-                .antMatchers(HttpMethod.DELETE, "/tasks/**")
-                .authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/posts/**")
+                .hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/comments/**")
+                .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated();
         httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
