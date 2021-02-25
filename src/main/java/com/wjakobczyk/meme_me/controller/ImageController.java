@@ -27,7 +27,7 @@ public class ImageController {
         file.transferTo(new File("F:/Spring/meme_meAPP/src/main/resources/images/memes/"+category+"/"+path));
         return ResponseEntity.ok().build();
     }
-// F:/Spring/meme_meAPP/src/main/resources/images
+
     @GetMapping(value = "/images/memes/{category}/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody
     byte[] getImageWithMediaType(@PathVariable String category, @PathVariable String name) throws IOException {
