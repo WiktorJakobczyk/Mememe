@@ -41,7 +41,7 @@ public class CommentService {
 
     public void editComment(Long id, CommentRequest toEdit) {
         if(!commentRepository.existsById(id)){
-            return;
+            throw new IllegalArgumentException(id.toString());
         }
         commentRepository.findById(id)
                 .ifPresent(comment->{
@@ -52,7 +52,8 @@ public class CommentService {
 
     public String deleteComment(Long id){
         if(!commentRepository.existsById(id)){
-            return "No comment with given id";
+            throw new IllegalArgumentException(id.toString());
+           // return "No comment with given id";
 
         }
         commentRepository.deleteById(id);
